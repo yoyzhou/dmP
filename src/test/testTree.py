@@ -5,6 +5,7 @@ Created on Aug 25, 2012
 '''
 import unittest
 from utils.Tree import Tree
+import utils
 
 class TestTree(unittest.TestCase):
     
@@ -18,7 +19,7 @@ class TestTree(unittest.TestCase):
             |___ C02
             |
             |___ C03
-                  |___ C31
+            |      |___ C31
         """
         self.root = Tree('Root')
         self.child01 = Tree('C01')
@@ -26,9 +27,14 @@ class TestTree(unittest.TestCase):
         self.child03 = Tree('C03')
         self.child11 = Tree('C11')
         self.child31 = Tree('C31')
+        self.child111 = Tree('C111')
+        self.child112 = Tree('C112')
         self.root.addChildren([self.child01, self.child02, self.child03])
         self.child01.addChild(self.child11)
         self.child03.addChild(self.child31)
+        self.child11.addChild(self.child111)
+        self.child11.addChild(self.child112)
+        self.root.printTree(utils.Tree.T)
         
     def test_initialization(self):
         pass
@@ -74,7 +80,7 @@ class TestTree(unittest.TestCase):
         self.assertFalse(self.child01.isBranch())
         self.assertFalse(self.child03.isBranch())
         self.assertTrue(self.child02.isBranch())
-        self.assertTrue(self.child11.isBranch())
+        #self.assertTrue(self.child11.isBranch())
         self.assertTrue(self.child31.isBranch())
     
     def test_ChildrendotAssign(self):
@@ -99,8 +105,13 @@ class TestTree(unittest.TestCase):
         self.assertEqual(self.child11.getNode('C11'), self.child11)
         self.assertEqual(self.root.getNode('C41'), None)
         
+    def test_PrintTree(self):
+        self.root.printTree(utils.Tree.S)
+        #[Root[C01[C11[C111,C112]],C02,C03[C31]]]
+        
     def tearDown(self):
-        pass
+        del self.root
+        
     
     
 if __name__ == "__main__":
