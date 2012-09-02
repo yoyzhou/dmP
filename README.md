@@ -1,4 +1,4 @@
-blog
+dmP
 ====
 
-Blog
+Data Mining Practices in Python

@@ -1,6 +1,6 @@
-from Classification.dtree import create_decision_tree
-from Classification.dtree import classify
-from Classification.id3 import gain
+from dmP.classification.dtree import create_decision_tree
+from dmP.classification.dtree import classify
+from dmP.classification.id3 import gain
 
 import sys
 
