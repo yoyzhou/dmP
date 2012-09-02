@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+*~
 
 # External tool builders
 .externalToolBuilders/
@@ -63,8 +64,6 @@ local.properties
 .builds
 *.dotCover
 
-## TODO: If you have NuGet Package Restore enabled, uncomment this
-#packages/
 
 # Visual C++ cache files
 ipch/
