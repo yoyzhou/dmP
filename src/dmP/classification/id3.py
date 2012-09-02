@@ -12,7 +12,7 @@ def entropy(data, target_attr):
     val_freq = {}
     data_entropy = 0.0
 
-    # Calculate the frequency of each of the values in the target attr
+    # Calculate the frequency of each of the values in the target attribute
     for record in data:
         if (record[target_attr] in val_freq):
             val_freq[record[target_attr]] += 1.0

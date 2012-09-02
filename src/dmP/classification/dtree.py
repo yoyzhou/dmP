@@ -1,6 +1,6 @@
 """
 This module holds functions that are responsible for creating a new
-decision tree and for using the tree for data classificiation.
+decision tree and for using the tree for data classification.
 """
 
 def majority_value(data, target_attr):
