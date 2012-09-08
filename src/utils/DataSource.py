@@ -6,9 +6,8 @@ Created on Sep 6, 2012
 
 class DataSource(object):
     '''
-    Class handling data set
+    Class handling data source/set
     '''
-
 
     def __init__(self, datafile, targetAtrr = None):
         '''
@@ -47,12 +46,13 @@ class DataSource(object):
     def majorityValue(self, dataset, attr = None):
         """
          Return the majority value for the specific attribute 
-         @param attr: Attribute name
+         @param attr: Attribute name, default the target attribute
         """
         if not attr:
             attr = self.targetAttr
             
         attrValues = self.getAttrValues(dataset, attr)
+        
         return max(attrValues, key=attrValues.count)
     
     def getAttrValues(self, dataset, attr):
@@ -60,28 +60,12 @@ class DataSource(object):
         Return a list of values for the given attribute
         @param attr: the attribute to be fetched
         """
-        return [v[attr] for v in dataset]
+        return [record[attr] for record in dataset]
     
-    def bestSplitor(self, attributes, fitness):
-        """
-        Cycles through all the attributes and returns the attribute with the
-        highest information gain (or lowest entropy).
-        """
-
-        best_gain = 0.0
-        best_attr = None
     
-        for attr in attributes:
-            gain = fitness(self.dataset, attr, self.targetAttr)
-            if (gain >= best_gain and attr != self.targetAttr):
-                best_gain = gain
-                best_attr = attr
-                    
-        return best_attr
-
-    def unique(self, dataset, attr):
+    def uniqueValues(self, dataset, attr):
         """
-        Return the unique values of the given attribute
+        Return a set of the uniqueValues values of the given attribute
         @param attr: Attribute name
         """
         return set(self.getAttrValues(dataset, attr))
