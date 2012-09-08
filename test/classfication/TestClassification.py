@@ -23,8 +23,6 @@ class TestClassification(unittest.TestCase):
         self.dtree.createDecisionTree(self.dtree.dataset, self.dtree.attributes).prettyTree()
         
         
-       
-    
     def tearDown(self):
         pass
         

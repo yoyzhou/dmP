@@ -42,17 +42,21 @@ class DecisionTree(object):
     
             # Create a new decision tree/node with the best attribute
             dtree = Tree(best)
-    
+            
+            #Attributes for next iterator, all attributes except already fitted `best` attribute
+            attrs = [attr for attr in attributes if attr != best]
+            
             # Create a new decision tree/sub-node for each of the values in the
             # best attribute field
             for val in self.datasource.unique(dataset, best):
                 # Create a subtree for the current value under the "best" field
                 subtree = self.createDecisionTree(
-                    self.datasource.subDataSet(best, val),
-                    [attr for attr in attributes if attr != best])
+                    self.datasource.subDataSet(dataset, best, val),
+                    attrs)
     
                 # Add the new subtree to the empty dictionary object in our new
                 # tree/node we just created.
                 dtree.addChild(subtree)
+                #dtree.prettyTree()
     
         return dtree

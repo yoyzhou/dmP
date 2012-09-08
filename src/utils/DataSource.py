@@ -86,12 +86,12 @@ class DataSource(object):
         """
         return set(self.getAttrValues(dataset, attr))
     
-    def subDataSet(self, attr, val):
+    def subDataSet(self, dataset, attr, val):
         """
         Return sub data set which attribute <attr> equals <val>, e.g. subDataSet('weather', 'sunny') means return 
         a sub data set which weather is sunny.
         @param attr: retrieved attribute name
         @param val: retrieved value  
         """
-        return [ data for data in self.dataset if data[attr] == val ]
+        return [ data for data in dataset if data[attr] == val ]
         
