@@ -6,15 +6,15 @@ Created on Sep 2, 2012
 import unittest
 from dmP.classification.dtree import DecisionTree
 
-from dmP.classification.id3 import splitor
-
+from dmP.classification.id3 import ID3
+from dmP.classification.c45 import C45
 
 class TestClassification(unittest.TestCase):
 
 
     def setUp(self):
-        self.datafile = '../data1'
-        self.dtree = DecisionTree(self.datafile, splitor)
+        self.datafile = '../data'
+        self.dtree = DecisionTree(self.datafile, C45().selector)
         
 
     def testDecisionTree(self):

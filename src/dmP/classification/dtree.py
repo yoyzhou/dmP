@@ -6,7 +6,6 @@ Created on Sep 2, 2012
 
 from pyTree.Tree import Tree
 from utils.DataSource import DataSource
-from lib2to3.pytree import Node
  
 class DecisionTree(object):
     """
@@ -23,10 +22,18 @@ class DecisionTree(object):
         self.decisiontree = None
         
     def createDecisionTree(self):
-        self.decisiontree = self.__treeGrowth__(self.datasource.dataset, self.datasource.attributes, self.datasource.targetAttr)
+        """
+        Create a decision tree against training set
+        """
+        self.decisiontree = self.__treeGrowth__(self.datasource.dataset, 
+                                                self.datasource.attributes, 
+                                                self.datasource.targetAttr)
         return self
     
     def makeDecision(self, sample = None, testset = None, testfile = None ):
+        """
+        Make decision against test set/sample
+        """
         testsamples = []
         if testfile:
             ds = DataSource(testfile)
@@ -36,7 +43,7 @@ class DecisionTree(object):
         elif sample:
             testsamples.append(sample)
         else:
-            raise ValueError('No test set passed in')
+            raise ValueError('No test set passed in.')
        
 
         for test in testsamples:
@@ -54,6 +61,9 @@ class DecisionTree(object):
             print(test)
     
     def prettyTree(self):
+        """"
+        Print decision tree
+        """
         try:
             self.decisiontree.prettyTree()
         except AttributeError:
@@ -82,7 +92,7 @@ class DecisionTree(object):
         elif tvals.count(tvals[0]) == len(tvals):
             return Tree(DecisionNode(tvals[0]))
         else:
-            # Choose best attribute to best classify our data
+            # Choose best attribute to best classify data
             best = self.splitmetric(dataset, attributes, target)
     
             # Create a new decision tree/node with the best attribute
@@ -100,7 +110,7 @@ class DecisionTree(object):
                     attrs, 
                     target)
     
-                # Add the new subtree
+                # Set decision condition, and add the new subtree
                 subtree.data.condition = val  
                 dtree.addChild( subtree)
                 
