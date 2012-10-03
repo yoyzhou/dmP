@@ -3,8 +3,8 @@ Created on Sep 9, 2012
 
 @author: yoyzhou
 '''
-from dmP.classification.Splitter import Splitter
-from dmP.classification.id3 import ID3
+from dmP.classification.DecisionTree.Splitter import Splitter
+from dmP.classification.DecisionTree.id3 import ID3
 import math
 
 class C45(Splitter):

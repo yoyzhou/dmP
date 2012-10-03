@@ -2,7 +2,7 @@
 This module contains the functions for calculating the information infogain of a
 data set as defined by the ID3.
 """
-from dmP.classification.Splitter import Splitter
+from dmP.classification.DecisionTree.Splitter import Splitter
 
 
 class ID3(Splitter):    
