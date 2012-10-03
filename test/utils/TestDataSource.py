@@ -26,8 +26,12 @@ class Test(unittest.TestCase):
         self.assertEqual(ds.datafile, self.datafile)
     
     def testMojorityValue(self):
-        self.assertEqual(self.ds.majorityValue('Purchase?'),'will buy')
+        self.assertEqual(self.ds.majorityValue(self.ds.dataset, 'Purchase?'),'will buy')
     
+    def testDualization(self):
+        self.ds.dualization('../data.o')
+        
+   
     def tearDown(self):
         del self.ds
         

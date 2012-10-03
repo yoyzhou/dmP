@@ -9,11 +9,15 @@ class DataSource(object):
     Class handling data source/set
     '''
 
-    def __init__(self, datafile, targetAtrr = None):
+    def __init__(self, datafile,  zipattr = True, targetAtrr = None):
         '''
         DataSource constructor.
         @param datafile: data set file which follows csv format
         @param targetAtrr: target/feature attribute name, by default it's will be the last attribute of data set  
+        @param zipattr: True will zip attributes with values, results data set likes [{attr1:val1, attr2:val2}, {}...], 
+                                where each record is a zipped dict with attr-val pair, True is the default value;
+                                if False, data record will not be zipped, results data set likes [[val1, val2,..], []...], where 
+                                each record is a list of values, not target attribute is included.
         '''
         
         self.datafile = datafile
@@ -27,6 +31,7 @@ class DataSource(object):
     
         #Create attributes list, for csv file the attributes or named column names are the first line of data file. 
         self.attributes = [attr.strip() for attr in lines[0].split(",")]
+        
         if not targetAtrr:
             self.targetAttr = self.attributes[-1]
         else:
@@ -36,11 +41,16 @@ class DataSource(object):
         
         #Data set property
         self.dataset = []
-            
-        for line in lines:
-            self.dataset.append(dict(zip(self.attributes,
-                                         [data.strip() for data in line.split(",")])))
-        
+        if zipattr:    
+            #zip attributes with value by default
+            for line in lines:
+                self.dataset.append(dict(zip(self.attributes,
+                                             [data.strip() for data in line.split(",")])))
+        else:
+            #note the target attribute must at the last column 
+            for line in lines:
+                self.dataset.append([data.strip() for data in line.split(",")])
+                
         datastream.close()
     
     def majorityValue(self, dataset, attr = None):
@@ -78,4 +88,40 @@ class DataSource(object):
         @param val: retrieved value  
         """
         return [ data for data in dataset if data[attr] == val ]
+    
+    
+    def dualization(self, outputfile):
+        """
+        Transform data set into features vector based record, where each feature can only be 0, means record doesn't 
+        own the feature, or 1, means record owns the feature. 
+        """
+        fv = []                             #features vector, including all features, excepts target attribute
+        
+        #find all the features
+        for attr in self.attributes:
+            if attr != self.targetAttr:
+                fv.extend(self.uniqueValues(self.dataset, attr))
+        
+        #clazzes = self.uniqueValues(self.dataset, self.targetAttr)
+        #clazzesDict = dict(zip(clazzes, range(len(clazzes))))
+        
+        #output file
+        ofile = open(outputfile, 'w')
+        
+        #write header
+        ofile.write(','.join(fv) + ',' + self.targetAttr + '\n')
+        
+        for record in self.dataset:
+            recordfeatures = []
+            values = record.values()
+            for f in fv:
+                if f in values:
+                    recordfeatures.append('1')
+                else:
+                    recordfeatures.append('0')
+            ofile.write(','.join(recordfeatures) + ',' + record[self.targetAttr] + '\n')
+        
+        ofile.close()
+        
+            
         

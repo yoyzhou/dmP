@@ -4,10 +4,10 @@ Created on Sep 2, 2012
 @author: yoyzhou
 '''
 import unittest
-from dmP.classification.dtree import DecisionTree
+from dmP.classification.DecisionTree.dtree import DecisionTree
 
-from dmP.classification.id3 import ID3
-from dmP.classification.c45 import C45
+from dmP.classification.DecisionTree.id3 import ID3
+from dmP.classification.DecisionTree.c45 import C45
 
 class TestClassification(unittest.TestCase):
 
