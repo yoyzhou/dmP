@@ -25,13 +25,13 @@ class Test(unittest.TestCase):
         
     def testClassfySingle(self):
         self.knn = KNN(self.ds.dataset[:-2], self.ds.dataset[7], 4)
-        self.assertEqual(self.knn.classify(),'will buy')
+        self.assertEqual(self.knn.classify(True,3),'will buy')
         #self.knn.classify();
         #print([rtn for rtn in self.knn.queryset]) self.knn = KNN(self.ds.dataset[:-2], self.ds.dataset[7], 4)
     
     def testClassfyMultiple(self):
         self.knn = KNN(self.ds.dataset[3:], self.ds.dataset[0:3], 4)
-        self.knn.classify();
+        self.knn.classify(True, 3);
         print([rtn for rtn in self.knn.queryset])
         
     def testName(self):

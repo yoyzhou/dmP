@@ -65,6 +65,12 @@ class DataSource(object):
         
         return max(attrValues, key=attrValues.count)
     
+    def getClasses(self):
+        """
+        Get unique classes from data set 
+        """ 
+        return self.uniqueValues(self.dataset,  self.targetAttr)
+        
     def getAttrValues(self, dataset, attr):
         """
         Return a list of values for the given attribute
